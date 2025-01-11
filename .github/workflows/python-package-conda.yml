@@ -19,11 +19,13 @@ jobs:
         bash miniconda.sh -b -p $HOME/miniconda
         echo "$HOME/miniconda/bin" >> $GITHUB_PATH
         source $HOME/miniconda/bin/activate
+        conda init bash
+        source ~/.bashrc
 
     - name: Create and activate environment for Python ${{ matrix.python-version }}
       run: |
         conda create --name env_${{ matrix.python-version }} python=${{ matrix.python-version }} --yes
-        conda activate env_${{ matrix.python-version }}
+        source activate env_${{ matrix.python-version }}
 
     - name: Install dependencies
       run: conda env update --file environment.yml
