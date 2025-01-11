@@ -1,0 +1,13 @@
+path: D:/WorkSpace/MLOPS/Assigment_1/datasets/
+train: working/archive/KIIT-MiTA/train/images
+val: working/archive/KIIT-MiTA/valid/images
+test: working/archive/KIIT-MiTA/test/images
+names:
+- Artilary
+- Missile
+- Radar
+- M. Rocket Launcher
+- Soldier
+- Tank
+- Vehicle
+nc: 7
