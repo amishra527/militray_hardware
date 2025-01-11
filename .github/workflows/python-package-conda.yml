@@ -13,18 +13,18 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-
     - name: Install Conda
       run: |
         sudo apt-get update
         sudo apt-get install -y conda
 
+    - name: Create and activate environment for Python ${{ matrix.python-version }}
+      run: |
+        conda create --name env_${{ matrix.python-version }} python=${{ matrix.python-version }} --yes
+        source activate env_${{ matrix.python-version }}
+
     - name: Install dependencies
-      run: conda env update --file environment.yml --name base
+      run: conda env update --file environment.yml
 
     - name: Lint with flake8
       run: |
@@ -38,7 +38,7 @@ jobs:
         pytest --junitxml=results.xml
 
     - name: Upload test results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       with:
         name: test-results
         path: results.xml
