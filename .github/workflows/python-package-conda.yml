@@ -18,8 +18,10 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Set up Conda
-      uses: conda-inc/conda-build-action@v4
+    - name: Install Conda
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y conda
 
     - name: Install dependencies
       run: conda env update --file environment.yml --name base
@@ -36,7 +38,7 @@ jobs:
         pytest --junitxml=results.xml
 
     - name: Upload test results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       with:
         name: test-results
         path: results.xml
